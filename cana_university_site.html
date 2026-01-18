@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CANA - Central Asia Neuroengineering Academy</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --burgundy: #8B0A1A;
+            --light-burgundy: rgba(139, 10, 26, 0.1);
+            --black: #000000;
+            --white: #ffffff;
+            --gray: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--black);
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--burgundy);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--black);
+            font-weight: 500;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--burgundy);
+        }
+
+        .lang-switcher {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-btn {
+            padding: 0.4rem 0.8rem;
+            border: 1px solid var(--burgundy);
+            background: transparent;
+            color: var(--burgundy);
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .lang-btn.active {
+            background: var(--burgundy);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, var(--black) 0%, var(--burgundy) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveGrid 20s linear infinite;
+        }
+
+        @keyframes moveGrid {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            padding: 1rem 3rem;
+            background: white;
+            color: var(--burgundy);
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Sections */
+        section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--burgundy);
+            font-weight: 700;
+        }
+
+        /* Programs */
+        .programs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .program-card {
+            padding: 2rem;
+            border-radius: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .program-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--burgundy);
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .program-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(139, 10, 26, 0.2);
+        }
+
+        .program-card h3 {
+            color: var(--burgundy);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .program-card p {
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        /* Stats */
+        .stats {
+            background: var(--burgundy);
+            color: white;
+            margin: 4rem 0;
+            padding: 4rem 2rem;
+            border-radius: 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 3rem;
+            border-radius: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--burgundy);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid rgba(139, 10, 26, 0.2);
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--burgundy);
+            box-shadow: 0 0 0 3px var(--light-burgundy);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--black);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--burgundy);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">
+                <span>🧠</span>
+                <span>CANA</span>
+            </div>
+            <ul class="nav-links">
+                <li><a onclick="scrollToSection('about')" data-en="About" data-ru="О нас" data-uz="Biz haqimizda">О нас</a></li>
+                <li><a onclick="scrollToSection('programs')" data-en="Programs" data-ru="Программы" data-uz="Dasturlar">Программы</a></li>
+                <li><a onclick="scrollToSection('contact')" data-en="Contact" data-ru="Контакты" data-uz="Aloqa">Контакты</a></li>
+            </ul>
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="switchLang('ru')">RU</button>
+                <button class="lang-btn" onclick="switchLang('uz')">UZ</button>
+                <button class="lang-btn" onclick="switchLang('en')">EN</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 data-en="Central Asia Neuroengineering Academy" data-ru="Центральноазиатская Академия Нейроинженерии" data-uz="Markaziy Osiyo Neyroinjiniring Akademiyasi">Центральноазиатская Академия Нейроинженерии</h1>
+            <p data-en="Shaping the Future of Neuroscience and Engineering" data-ru="Формируем будущее нейронауки и инженерии" data-uz="Neurofan va muhandislikning kelajagini shakllantirish">Формируем будущее нейронауки и инженерии</p>
+            <button class="cta-button" onclick="scrollToSection('programs')" data-en="Explore Programs" data-ru="Изучить программы" data-uz="Dasturlarni o'rganish">Изучить программы</button>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title" data-en="About CANA" data-ru="О CANA" data-uz="CANA haqida">О CANA</h2>
+        <div class="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <h3>500+</h3>
+                    <p data-en="Students" data-ru="Студентов" data-uz="Talabalar">Студентов</p>
+                </div>
+                <div class="stat-item">
+                    <h3>50+</h3>
+                    <p data-en="Expert Faculty" data-ru="Экспертов-преподавателей" data-uz="Ekspert o'qituvchilar">Экспертов-преподавателей</p>
+                </div>
+                <div class="stat-item">
+                    <h3>15+</h3>
+                    <p data-en="Research Labs" data-ru="Исследовательских лабораторий" data-uz="Tadqiqot laboratoriyalari">Исследовательских лабораторий</p>
+                </div>
+                <div class="stat-item">
+                    <h3>30+</h3>
+                    <p data-en="Partner Universities" data-ru="Университетов-партнеров" data-uz="Hamkor universitetlar">Университетов-партнеров</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs">
+        <h2 class="section-title" data-en="Our Programs" data-ru="Наши программы" data-uz="Bizning dasturlarimiz">Наши программы</h2>
+        <div class="programs-grid">
+            <div class="program-card glass">
+                <h3 data-en="Neuroscience" data-ru="Нейронаука" data-uz="Neyrofan">Нейронаука</h3>
+                <p data-en="Explore the complexities of the human brain and nervous system through cutting-edge research and hands-on experience." data-ru="Изучайте сложности человеческого мозга и нервной системы через передовые исследования и практический опыт." data-uz="Ilg'or tadqiqotlar va amaliy tajriba orqali inson miyasi va nerv tizimining murakkabliklarini o'rganing.">Изучайте сложности человеческого мозга и нервной системы через передовые исследования и практический опыт.</p>
+            </div>
+            <div class="program-card glass">
+                <h3 data-en="Biomedical Engineering" data-ru="Биомедицинская инженерия" data-uz="Biotibbiy muhandislik">Биомедицинская инженерия</h3>
+                <p data-en="Develop innovative medical devices and technologies that transform healthcare and improve lives worldwide." data-ru="Разрабатывайте инновационные медицинские устройства и технологии, которые трансформируют здравоохранение и улучшают жизни по всему миру." data-uz="Sog'liqni saqlashni o'zgartiruvchi va butun dunyo bo'ylab hayotni yaxshilaydigan innovatsion tibbiy qurilmalar va texnologiyalarni ishlab chiqing.">Разрабатывайте инновационные медицинские устройства и технологии, которые трансформируют здравоохранение и улучшают жизни по всему миру.</p>
+            </div>
+            <div class="program-card glass">
+                <h3 data-en="AI & Neural Networks" data-ru="ИИ и нейронные сети" data-uz="AI va neyron tarmoqlar">ИИ и нейронные сети</h3>
+                <p data-en="Master artificial intelligence and neural network technologies that are revolutionizing science and industry." data-ru="Овладейте технологиями искусственного интеллекта и нейронных сетей, которые революционизируют науку и промышленность." data-uz="Fan va sanoatni inqilob qilayotgan sun'iy intellekt va neyron tarmoq texnologiyalarini o'zlashtiring.">Овладейте технологиями искусственного интеллекта и нейронных сетей, которые революционизируют науку и промышленность.</p>
+            </div>
+            <div class="program-card glass">
+                <h3 data-en="Brain-Computer Interfaces" data-ru="Интерфейсы мозг-компьютер" data-uz="Miya-kompyuter interfeyslari">Интерфейсы мозг-компьютер</h3>
+                <p data-en="Pioneer the next generation of human-machine interaction through brain-computer interface technology." data-ru="Станьте пионером следующего поколения взаимодействия человека и машины через технологии интерфейсов мозг-компьютер." data-uz="Miya-kompyuter interfeysi texnologiyasi orqali inson-mashina o'zaro ta'sirining keyingi avlodiga kashshof bo'ling.">Станьте пионером следующего поколения взаимодействия человека и машины через технологии интерфейсов мозг-компьютер.</p>
+            </div>
+            <div class="program-card glass">
+                <h3 data-en="Computational Neuroscience" data-ru="Вычислительная нейронаука" data-uz="Hisoblash neyrofani">Вычислительная нейронаука</h3>
+                <p data-en="Apply advanced computational methods to understand brain function and develop new therapeutic approaches." data-ru="Применяйте передовые вычислительные методы для понимания функций мозга и разработки новых терапевтических подходов." data-uz="Miya funksiyasini tushunish va yangi terapevtik yondashuvlarni ishlab chiqish uchun ilg'or hisoblash usullarini qo'llang.">Применяйте передовые вычислительные методы для понимания функций мозга и разработки новых терапевтических подходов.</p>
+            </div>
+            <div class="program-card glass">
+                <h3 data-en="Neuroimaging" data-ru="Нейровизуализация" data-uz="Neyrotasvirlash">Нейровизуализация</h3>
+                <p data-en="Learn advanced imaging techniques to visualize and analyze brain structure and function in unprecedented detail." data-ru="Изучайте передовые методы визуализации для изображения и анализа структуры и функций мозга с беспрецедентной детализацией." data-uz="Miya tuzilishi va funksiyasini misli ko'rilmagan tafsilotlar bilan tasvirlash va tahlil qilish uchun ilg'or tasvirlash usullarini o'rganing.">Изучайте передовые методы визуализации для изображения и анализа структуры и функций мозга с беспрецедентной детализацией.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title" data-en="Contact Us" data-ru="Свяжитесь с нами" data-uz="Biz bilan bog'laning">Свяжитесь с нами</h2>
+        <form class="contact-form glass">
+            <div class="form-group">
+                <label data-en="Full Name" data-ru="Полное имя" data-uz="To'liq ism">Полное имя</label>
+                <input type="text" required>
+            </div>
+            <div class="form-group">
+                <label data-en="Email" data-ru="Электронная почта" data-uz="Elektron pochta">Электронная почта</label>
+                <input type="email" required>
+            </div>
+            <div class="form-group">
+                <label data-en="Message" data-ru="Сообщение" data-uz="Xabar">Сообщение</label>
+                <textarea rows="5" required></textarea>
+            </div>
+            <button type="submit" class="cta-button" data-en="Send Message" data-ru="Отправить сообщение" data-uz="Xabar yuborish">Отправить сообщение</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3>CANA</h3>
+            <p data-en="Central Asia Neuroengineering Academy" data-ru="Центральноазиатская Академия Нейроинженерии" data-uz="Markaziy Osiyo Neyroinjiniring Akademiyasi">Центральноазиатская Академия Нейроинженерии</p>
+            <div class="footer-links">
+                <a href="#" data-en="Privacy Policy" data-ru="Политика конфиденциальности" data-uz="Maxfiylik siyosati">Политика конфиденциальности</a>
+                <a href="#" data-en="Terms of Service" data-ru="Условия использования" data-uz="Foydalanish shartlari">Условия использования</a>
+                <a href="#" data-en="Careers" data-ru="Карьера" data-uz="Karyera">Карьера</a>
+            </div>
+            <p>&copy; 2026 CANA. <span data-en="All rights reserved." data-ru="Все права защищены." data-uz="Barcha huquqlar himoyalangan.">Все права защищены.</span></p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = 'ru';
+
+        function switchLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+                el.textContent = el.getAttribute('data-' + lang);
+            });
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Smooth scroll effect for navbar
+        let lastScroll = 0;
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                nav.style.transform = 'translateY(-100%)';
+            } else {
+                nav.style.transform = 'translateY(0)';
+            }
+            lastScroll = currentScroll;
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const messages = {
+                ru: 'Спасибо за ваше сообщение! Мы свяжемся с вами в ближайшее время.',
+                uz: "Xabaringiz uchun rahmat! Tez orada siz bilan bog'lanamiz.",
+                en: 'Thank you for your message! We will contact you soon.'
+            };
+            alert(messages[currentLang]);
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
